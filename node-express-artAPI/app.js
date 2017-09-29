@@ -4,15 +4,16 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var request = require('superagent');
+// var request = require('superagent');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var api = require('./routes/api');
 
-var clientID = '0dd828b10c768c837689',
-    clientSecret = 'd1ea87a1ef6af9ec8b3bb5d565022a62',
-    apiUrl = 'https://api.artsy.net/api/tokens/xapp_token',
-    xappToken;
+// var clientID = '0dd828b10c768c837689',
+//     clientSecret = 'd1ea87a1ef6af9ec8b3bb5d565022a62',
+//     apiUrl = 'https://api.artsy.net/api/tokens/xapp_token',
+//     xappToken;
 
 var app = express();
 
@@ -28,16 +29,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-request
-  .post(apiUrl)
-  .send({ client_id: clientID, client_secret: clientSecret })
-  .end(function(res) {
-  	// console.log(token);
-    // xappToken = res.body.token; 
-  });
+// request
+//   .post(apiUrl)
+//   .send({ client_id: clientID, client_secret: clientSecret })
+//   .end(function(res) {
+//     xappToken = res.body.token; 
+//   });
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
